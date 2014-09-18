@@ -1,0 +1,17 @@
+---
+- name: Configure read only filesystems
+  mount: name="{{ item.name }}"
+    fstype={{ item.filesystem }}
+    state={{ filesystems_configuration_mounted }}
+    opts={{ filesystems_ro_opts }}
+    src="LABEL={{ item.label }}"
+  with_items: filesystems_configuration_ro
+
+- name: Configure noexec filesystems
+  mount: name={{ item.name }}
+    fstype={{ item.filesystem }}
+    state={{ filesystems_configuration_mounted }}
+    opts={{ filesystems_noexec_opts }}
+    src="LABEL={{ item.label }}"
+  with_items: filesystems_configuration_noexec
+

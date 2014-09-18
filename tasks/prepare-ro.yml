@@ -1,0 +1,26 @@
+---
+# https://wiki.debian.org/ReadonlyRoot for a big list of other things that may need changing
+
+- name: Remove adjtime configuration file
+  file: path=/etc/adjtime state=absent
+
+- name: Move file used by libblkid1 out of etc
+  command: mv /etc/blkid.tab /var/lib/misc/blkid.tab
+    removes=/etc/blkid.tab creates=/var/lib/misc/blkid.tab
+
+# TODO: swap to using user: module. This will need special testing - does it
+# replace the next one or two entries?  user: createhome=no move_home=yes
+# Shnoul this be done by franklinkim.users?
+# This is how to s|root|home/root in ansible, ref http://stackoverflow.com/q/22398302
+- name: Change passwd file to move roots home under /home/ partition
+  lineinfile: dest=/etc/passwd state=present backrefs=yes
+    regexp='^(.*):/root:(.*)$' line='\1:/home/root:\2'
+  when: filesystems_ro_move_root
+
+# Hopefully chdir will stop it failing when run for the first time - tbc
+- name: Move roots home to a partition with r/w access
+  command: mv /root /home/root
+    removes=/root creates=/home/root
+    chdir=/
+  when: filesystems_ro_move_root
+

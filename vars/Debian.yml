@@ -1,0 +1,6 @@
+---
+# Options for filesystems mounted noexec
+filesystems_noexec_opts: 'noexec,nosuid'
+# Options for filesystems mounted read only
+filesystems_ro_opts: 'ro,data=writeback,errors=remount-ro'
+
