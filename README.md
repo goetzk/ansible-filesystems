@@ -33,6 +33,8 @@ filesystems_configuration_mounted: 'present'
 # Move roots home
 filesystems_ro_move_root: true
 
+# These two are set per ansible_distribution; these are Debians settings as its
+# the only currently enabled distribution.
 # Options for filesystems mounted noexec
 filesystems_noexec_opts: 'noexec,nosuid'
 # Options for filesystems mounted read only

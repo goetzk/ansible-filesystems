@@ -3,10 +3,11 @@
 
 # Read only filesystems
 filesystems_configuration_ro: []
+# Noexec filesystems
 filesystems_configuration_noexec: []
 # Present updates configuration. Set to 'mounted' to have filesystems remounted
 # at once, see mount module docs for explanation and other options
 filesystems_configuration_mounted: 'present'
 # Move roots home
-filesystems_ro_move_root: true
+filesystems_ro_move_root: false
 
