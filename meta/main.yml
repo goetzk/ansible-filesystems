@@ -94,7 +94,7 @@ galaxy_info:
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  #categories:
+  categories:
   - system
 dependencies: []
   # List your role dependencies here, one per line. Only
