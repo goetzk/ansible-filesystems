@@ -50,8 +50,14 @@ Example Playbook
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
+      vars:
+       - filesystems_configuration_ro:
+         - { name: '/', label: 'ROOTFS', filesystem: 'ext4' }
+       filesystems_configuration_noexec:
+         - { name: '/tmp', label: 'TEMPFS', filesystem: 'tmpfs'}
+       - filesystems_ro_move_root: true
       roles:
-         - { role: goetzk.filesystems, filesystems_ro_rootfs_enable: true }
+         - { role: goetzk.filesystems }
 
 License
 -------
