@@ -5,7 +5,8 @@
 
 - include: prepare-ro.yml
 
-- include: prepare-noexec.yml
+# Nothing needs to happen for noexec at this time
+# - include: prepare-noexec.yml
 
 - include: configure-filesystems.yml
 
