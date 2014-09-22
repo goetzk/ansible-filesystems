@@ -1,0 +1,6 @@
+---
+# Options for filesystems mounted noexec
+filesystems_noexec_opts: 'defaults,noexec,nosuid'
+# Options for filesystems mounted read only
+filesystems_ro_opts: 'defaults,ro'
+
