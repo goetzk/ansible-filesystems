@@ -1,12 +1,51 @@
 ---
-# https://wiki.debian.org/ReadonlyRoot for a big list of other things that may need changing
+# Most of the items here come from the Debian wiki -
+# https://wiki.debian.org/ReadonlyRoot . As Roles for these things end up on
+# galaxy I will try and push out the read only support to them.
 
 - name: Remove adjtime configuration file
   file: path=/etc/adjtime state=absent
 
+- name: Update hwclock init script to remove adjtime
+  when: ansible_os_family == 'Debian'
+  lineinfile: state=present
+    line='HWCLOCKPARS="--noadjfile"'
+    regexp='^HWCLOCKPARS=.*'
+    dest='/etc/init.d/hwclock.sh'
+
+# FIXME: should this attempt to fix the alsa init script to set HOME?
+
 - name: Move file used by libblkid1 out of etc
   command: mv /etc/blkid.tab /var/lib/misc/blkid.tab
     removes=/etc/blkid.tab creates=/var/lib/misc/blkid.tab
+
+# FIXME: will moving cups configuration manually cause issues?
+
+- name: Configure LVM to use /var/backups
+  lineinfile:
+    line='{{ item }}_dir = "/var/backups/lvm/{{ item }}"'
+    regexp='{{ item }}_dir = "/etc.*"'
+    dest='/etc/lvm/lvm.conf'
+  with_items:
+    - backup
+    - archive
+
+- name: Create new directories for LVM backups and archives
+  file: state=directory name='/var/backups/lvm'
+
+- name: Move LVM backups to new location
+  command: mv /etc/lvm/backup /var/backups/lvm/backup
+    creates=/var/backups/lvm/backup
+
+- name: Move LVM archives to new location
+  command: mv /etc/lvm/archive /var/backups/lvm/archive
+    creates=/var/backups/lvm/archive
+
+- name: Make mtab a symlink
+  file: force=yes
+    state=link
+    name='/etc/mtab'
+    src='/proc/mounts'
 
 # TODO: swap to using user: module. This will need special testing - does it
 # replace the next one or two entries?  user: createhome=no move_home=yes
