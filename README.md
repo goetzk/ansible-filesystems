@@ -20,6 +20,10 @@ If the role is run without updating filesystems_configuration_mounted to
 'mounted' filesystems will need to be manually remounted or the server rebooted
 to pick up the new configuration. The current setting is the safe default.
 
+The role isn't comprehensive - there are other things living in /etc/ that need
+moving which might affect you - I'm happy to update the role if you encounter
+any.
+
 Role Variables
 --------------
 
