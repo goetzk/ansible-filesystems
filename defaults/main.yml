@@ -10,4 +10,5 @@ filesystems_configuration_noexec: []
 filesystems_configuration_mounted: 'present'
 # Move roots home
 filesystems_ro_move_root: false
-
+# Enable if you have LVM and need it moved
+filesystems_with_lvm: false

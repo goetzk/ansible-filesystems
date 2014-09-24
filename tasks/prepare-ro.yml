@@ -22,6 +22,7 @@
 # FIXME: will moving cups configuration manually cause issues?
 
 - name: Configure LVM to use /var/backups
+  when: filesystems_with_lvm
   lineinfile:
     line='{{ item }}_dir = "/var/backups/lvm/{{ item }}"'
     regexp='{{ item }}_dir = "/etc.*"'
@@ -31,13 +32,16 @@
     - archive
 
 - name: Create new directories for LVM backups and archives
+  when: filesystems_with_lvm
   file: state=directory name='/var/backups/lvm'
 
 - name: Move LVM backups to new location
+  when: filesystems_with_lvm
   command: mv /etc/lvm/backup /var/backups/lvm/backup
     creates=/var/backups/lvm/backup
 
 - name: Move LVM archives to new location
+  when: filesystems_with_lvm
   command: mv /etc/lvm/archive /var/backups/lvm/archive
     creates=/var/backups/lvm/archive
 

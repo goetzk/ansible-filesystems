@@ -44,6 +44,9 @@ filesystems_noexec_opts: 'noexec,nosuid'
 # Options for filesystems mounted read only
 filesystems_rofs_opts: 'ro,data=writeback,errors=remount-ro'
 
+# Enable if you have LVM and need it moved
+filesystems_with_lvm: false
+
 
 Dependencies
 ------------
