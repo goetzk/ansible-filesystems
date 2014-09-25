@@ -20,9 +20,21 @@ If the role is run without updating filesystems_configuration_mounted to
 'mounted' filesystems will need to be manually remounted or the server rebooted
 to pick up the new configuration. The current setting is the safe default.
 
-The role isn't comprehensive - there are other things living in /etc/ that need
-moving which might affect you - I'm happy to update the role if you encounter
-any.
+The role isn't comprehensive (see next section) - there are other things living
+in /etc/ that need moving which might affect you - I'm happy to update the role
+if you encounter any.
+
+Known problems
+--------------
+There are several things which are known to write to /etc/ which are left alone
+by this role.  An example of something that hasn't been moved/updated is
+resolv.conf. How it should be handled is an administrator choice (static file?
+no file? install resolvconf to replace it?) so it has been left alone.
+
+Known items:
+* resolv.conf
+* Alsa/Pulse .pulse files
+* CUPS
 
 Role Variables
 --------------
