@@ -1,9 +1,9 @@
 ---
 # defaults file for goetzk.filesystems
 
-# Read only filesystems
+# Read only filesystems, this is a list of dictionaries
 filesystems_configuration_ro: []
-# Noexec filesystems
+# Noexec filesystems, this is a list of dictionaries
 filesystems_configuration_noexec: []
 # Present updates configuration. Set to 'mounted' to have filesystems remounted
 # at once, see mount module docs for explanation and other options
